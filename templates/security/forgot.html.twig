@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'register' %}
+
+
+{% block body %}
+        
+    <form method="post" class="login-form pl-5">
+
+        <div class="form-group">
+            <img src="{{asset('images/email.png')}}" alt="Profile Image"></img>
+
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" placeholder="Email" required autofocus>
+        </div>
+        
+        <button class="btn btn-tertiary text-uppercase btn-block" type="submit">
+            Login
+        </button>
+    </form>
+
+ 
+{% endblock %}
+

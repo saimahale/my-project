@@ -1,0 +1,10 @@
+{% extends 'base_with_nav.html.twig' %}
+
+{% block body %}
+<div class="container">
+
+    <p>
+        We got some error please send report to {{admin_email}} or <a href="{{ path('app_home') }}">return to the homepage</a>.
+    </p>
+</div>
+{% endblock %}

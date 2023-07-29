@@ -1,0 +1,281 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'invite' %}
+
+
+{% block body %}
+  
+    {{ form_start(form, {'attr': {'id': 'inviteForm', 'class': 'form-medium form'}}) }}
+        <div class="row">
+            <div class="col-md-3 d-block d-md-none">
+                <a class="logo-gray p-5" title="rabblehome" href="/">
+                    <img src="{{asset('images/rabblehome-blue-logo.png')}}" alt="{{site_name}}" class="w-50" />
+                </a>
+            </div>
+            <div class="col-md-3 d-none d-sm-none d-md-block">
+                <a class="logo-gray p-5" title="rabblehome" href="/">
+                    <img src="{{asset('images/rabblehome-blue-logo.png')}}" alt="{{site_name}}" />
+                </a>
+            </div>
+            <div class="col-md-9 py-3">
+                <div class="row px-2" >
+                    
+                    <h6 class="col-md-12 text-bold text-secondary">
+                        {% if userType == 20 %}
+                            AGENT 
+                        {% elseif userType == 30 %}
+                            TRANSACTION
+                        {% elseif userType == 40 %}
+                            MERCHANT
+                        {% elseif userType == 50 %}
+                            ADMINISTRATOR
+                        {% endif %}    
+                            REGISTRATION
+                    </h6>  
+                                              
+                    <div class="col-md-12 media">
+                        <div class="media-left">
+                            <img src="" class="media-object">
+                        </div>
+                        <div class="media-body text-muted">
+                            <p>Thank you for accepting the invitation
+                            {% if createdBy is not null %}
+                                <span class="font-italic">from {{ createdBy.userType | userType }}</span><span class="text-primary font-weight-bold">, {{ createdBy.firstName }} {{createdBy.lastName }}</span>
+                            {% endif %}.  
+                             Please fill in as much information below as possible to complete your registration.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row px-2">
+                    <h6 class="col-md-12 text-primary">
+                        Personal Details
+                    </h6> 
+                    <div class="col-md-6 text-muted">
+                        {{ form_row(form.firstName) }}
+                    </div>
+                      <div class="col-md-6 text-muted">
+                        {{ form_row(form.lastName) }}
+                    </div>
+                </div>                
+                <div class="row px-2">
+                    <div class="col-md-6 text-muted">
+                        {{ form_row(form.email) }}
+                    </div> 
+                    <div class="col-md-6 text-muted">
+                        {{ form_row(form.phone) }}
+                    </div> 
+                </div>
+                <div class="row px-2">                    
+                    <div class="col-md-6 text-muted">
+                        {{ form_row(form.password.first) }}
+                    </div>                                           
+                    <div class="col-md-6 text-muted">
+                        {{ form_row(form.password.second) }}
+                    </div>                        
+                </div>
+
+                {% if userType == 40 %}
+                    <div class="row px-2">                     
+                        <h6 class="col-md-12 text-primary">
+                            Services
+                        </h6> 
+                        <div class="col-md-6 text-muted">
+                            {{ form_row(form.offeredCategory) }}
+                        </div>                       
+                    </div>   
+                    <div class="row px-2">                     
+                        <h6 class="col-md-12 text-primary">
+                            Serviced Area
+                        </h6> 
+                        <div class="col-md-6 text-muted">
+                            {{ form_row(form.servicedState) }}
+                        </div>  
+                        <div class="col-md-6 text-muted">
+                            {{ form_row(form.servicedMetro) }}
+                        </div> 
+                        <div class="col-md-12 text-muted">
+                            {{ form_row(form.servicedCounties) }}
+                        </div>                     
+                    </div>                               
+                {% endif %}
+
+                <div class="row px-2">                     
+                    <h6 class="col-md-12 text-primary">
+                        {% if userType == 40 %} 
+                            Company Details
+                        {% elseif userType == 10 %}
+                            Property Address Details
+                        {% endif %}
+                    </h6> 
+                    {% if userType == 40 %}
+                        <div class="col-md-6 text-muted">
+                            {{ form_row(form.companyRegistrationNo) }}
+                        </div>
+                        <div class="col-md-6 text-muted">
+                            {{ form_row(form.companyTaxationNo) }}
+                        </div>
+                    {% endif %}
+                    {% if userType == 10 or userType == 40 %}
+                        <div class="col-md-6 text-muted">
+                            {{ form_row(form.address) }}
+                        </div>                     
+                        <div class="col-md-6 text-muted">
+                            {{ form_row(form.address2) }}
+                        </div>
+                        <div class="col-md-4 text-muted">
+                            {{ form_row(form.state) }}
+                        </div>
+                        <div class="col-md-4 text-muted">
+                            {{ form_row(form.city) }}
+                        </div>                        
+                        <div class="col-md-4 text-muted">
+                            {{ form_row(form.zipcode) }}
+                        </div>
+                    {% endif %}
+                </div> 
+
+                 <div class="row px-2">
+                    <div class="col-md-6 text-muted">
+                        {{ form_row(form.continue, {'attr': {'class': 'btn btn-primary'}}) }}
+                    </div>                        
+                </div>
+            </div>
+        </div>         
+    {{ form_end(form) }}
+<script>
+$(document).ready(function () { 
+
+
+    $('#inviteForm').validate();
+
+    if($('#user_offeredCategory').length){
+        $('#user_offeredCategory').select2({
+            theme: 'bootstrap',
+            allowClear: true,
+        });
+
+        $('#user_servicedCounties').select2({
+            theme: 'bootstrap',
+            allowClear: true,
+        });
+    }
+    if($('#user_zipcode').length){
+        //address related scripts
+        $('#user_zipcode').select2({
+            theme: 'bootstrap',
+            allowClear: true,
+        });
+        $('#user_state').select2({
+            theme: 'bootstrap',
+            allowClear: true,
+        });
+        $('#user_city').select2({
+            theme: 'bootstrap',
+            allowClear: true,
+        });
+
+        var $user_state = $('#user_state');
+
+        $user_state.on('change', function(e){
+          console.log("changed...");
+          $('#user_city').val('');
+          $('#user_zipcode').val('');
+          var $form = $(this).closest('form');
+          var data = {};
+          data['stateId'] = $user_state.val();
+          $.ajax({
+            url : '{{path('ajax_get_cities')}}',
+            type: 'get',
+            data : data,
+            dataType: "json",
+            success: function(ret) {
+              console.log("received...", ret.results);
+              var $dropdown = $('#user_city');
+              $dropdown.html("");
+              $dropdown.append($("<option />").val("").text("Choose an option"));
+              $.each(ret.results, function(index, item) {
+                  $dropdown.append($("<option />").val(item.id).text(item.name));
+              });
+            }
+          });
+        });
+
+
+        var $user_city = $('#user_city');
+
+        $user_city.on('change', function(e){
+          console.log("changed...");
+          $('#user_zipcode').val('');
+          var $form = $(this).closest('form');
+          var data = {};
+          data['cityId'] = $user_city.val();
+          $.ajax({
+            url : '{{path('ajax_get_zipcodes')}}',
+            type: 'get',
+            data : data,
+            dataType: "json",
+            success: function(ret) {
+              console.log("received...", ret.results);
+              var $dropdown = $('#user_zipcode');
+              $dropdown.html("");
+              $dropdown.append($("<option />").val("").text("Choose an option"));
+              $.each(ret.results, function(index, item) {
+                  $dropdown.append($("<option />").val(item.id).text(item.name));
+              });
+            }
+          });
+        });
+    }
+
+    var $user_servicedState = $('#user_servicedState');
+
+    $user_servicedState.on('change', function(e){
+      console.log("changed...");
+      $('#user_servicedMetro').val('');
+      $('#user_servicedCounties').val('');
+      var $form = $(this).closest('form');
+      var data = {};
+      data['stateId'] = $user_servicedState.val();
+      $.ajax({
+        url : '{{path('ajax_get_metros')}}',
+        type: 'get',
+        data : data,
+        dataType: "json",
+        success: function(ret) {
+          console.log("received...", ret.results);
+          var $dropdown = $('#user_servicedMetro');
+          $dropdown.html("");
+          $dropdown.append($("<option />").val("").text("Choose an option"));
+          $.each(ret.results, function(index, item) {
+              $dropdown.append($("<option />").val(item.id).text(item.name));
+          });
+        }
+      });
+    });
+
+    var $user_servicedMetro = $('#user_servicedMetro');
+
+    $user_servicedMetro.on('change', function(e){
+      console.log("changed...");
+      var $form = $(this).closest('form');
+      var data = {};
+      data['metroId'] = $user_servicedMetro.val();
+      $.ajax({
+        url : '{{path('ajax_get_counties')}}',
+        type: 'get',
+        data : data,
+        dataType: "json",
+        success: function(ret) {
+          console.log("received...", ret.results);
+          var $dropdown = $('#user_servicedCounties');
+          $dropdown.html("");
+          $dropdown.append($("<option />").val("").text("Choose an option"));
+          $.each(ret.results, function(index, item) {
+              $dropdown.append($("<option />").val(item.id).text(item.name));
+          });
+        }
+      });
+    });
+});
+</script>
+{% endblock %}

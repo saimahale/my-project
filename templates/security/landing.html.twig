@@ -1,0 +1,150 @@
+{% extends 'base.html.twig' %}
+{% block page_title %}Sign in!{% endblock %}
+{% block content %}
+<section class="services-section p-5" id="services">
+    <div class="heading text-primary text-wrap text-center">
+        AT YOUR SERVICE
+    </div>
+    <div class="services container">
+        <div class="row text-primary py-5 service-row-1">
+            <div class=" col col-xs-6 text-center service-border service-box d-service-border ">
+                <div class="service-hero p-2">
+                    <img src="{{ absolute_url('/images/hvac.png')}}" alt="hvac" />
+                </div>
+                <div class="service-name text-center">
+                    hvac
+                </div>
+            </div>
+            <div class=" col col-xs-6 text-center service-border service-box ">
+                <div class="service-hero p-2">
+                    <img src="{{ absolute_url('/images/applications.png')}}" alt="application" />
+                </div>
+                <div class="service-name text-center">
+                    applications
+                </div>
+            </div>
+            <div class=" col col-xs-6 text-center service-border service-box d-service-border">
+                <div class="service-hero p-2">
+                    <img src="{{ absolute_url('/images/cleaning.png')}}" alt="cleaning" />
+                </div>
+                <div class="service-name text-center">
+                    cleaning
+                </div>
+            </div>
+            <div class=" col col-xs-6 text-center service-border service-box">
+                <div class="service-hero p-2">
+                    <img src="{{ absolute_url('/images/painting.png')}}" alt="painting" />
+                </div>
+                <div class="service-name text-center">
+                    painting
+                </div>
+            </div>
+            <div class=" col col-xs-6 text-center service-box">
+                <div class="service-hero p-2">
+                    <img src="{{ absolute_url('/images/pest-control.png')}}" alt="pest-control" />
+                </div>
+                <div class="service-name text-center">
+                    pest control
+                </div>
+            </div>      
+        </div>
+        {# second row of service #}
+        <div class="row text-primary py-5">
+            <div class=" col col-xs-6 text-center service-border service-box d-service-border">
+                <div class="service-hero p-2">
+                    <img src="{{ absolute_url('/images/lawn-care.png')}}" alt="lawn-care" />
+                </div>
+                <div class="service-name text-center">
+                    lawn care
+                </div>
+            </div>
+            <div class=" col col-xs-6 text-center service-border service-box ">
+                <div class="service-hero p-2">
+                    <img src="{{ absolute_url('/images/plumbing.png')}}" alt="plumbing" />
+                </div>
+                <div class="service-name text-center">
+                    plumbing
+                </div>
+            </div>
+            <div class=" col col-xs-6 text-center service-border service-box d-service-border">
+                <div class="service-hero p-2">
+                    <img src="{{ absolute_url('/images/handyman.png')}}" alt="handyman" />
+                </div>
+                <div class="service-name text-center">
+                    handyman
+                </div>
+            </div>
+            <div class=" col col-xs-6 text-center service-border service-box">
+                <div class="service-hero p-2">
+                    <img src="{{ absolute_url('/images/electrical.png')}}" alt="electrical" />
+                </div>
+                <div class="service-name text-center">
+                    electrical
+                </div>
+            </div>
+            <div class=" col col-xs-6 text-center  service-box">
+                <div class="service-hero p-2">
+                    <img src="{{ absolute_url('/images/moving.png')}}" alt="moving" />
+                </div>
+                <div class="service-name text-center">
+                    moving
+                </div>
+            </div> 
+        </div>
+    </div>
+</section>
+
+<section class="statistics" id="statistics">
+    <div class="row">
+        <div class=" col-md-4 ">
+        <img src="{{ absolute_url('/images/home-img.png')}}" class="left-home-img" alt="home-img" />
+        </div>
+        <div class=" col-md-8 statistics-data ">
+            <div class="row">
+                <div class="col-sm-6 text-center py-3 px-5">
+                    <div class="customers-count"><span class="count">300000</span>+</div>
+                    <p class="title">Happy Customer</p>
+                </div>
+                <div class="col-sm-6 text-center py-3 px-5">
+                   <div class="customers-count"> <span class="count">50000</span>+</div>
+                    <p class="title">Happy Merchants</p>
+                </div>
+                <div class="col-sm-6 text-center py-3 px-5">
+                   <div class="customers-count"> <span class="count">25000</span>+</div>
+                    <p class="title">Transaction Coordinators</p>
+                </div>
+                <div class="col-sm-6 text-center py-3 px-5">
+                  <div class="customers-count">  <span class="count">1000</span>+</div>
+                    <p class="title">Certified Agents</p>
+                </div>   
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () { 
+        $('#loginLink').click(function(){
+            $('#loginForm').show();
+            $('#forgotForm').hide();
+        });
+        $('#forgotLink').click(function(){
+            $('#forgotForm').show();
+            $('#loginForm').hide();
+        });
+    });
+
+    $('.count').each(function () {
+    $(this).prop('Counter',0).animate({
+        Counter: $(this).text()
+        }, {
+            duration: 8000,
+            easing: 'swing',
+            step: function (now) {
+                $(this).text(Math.ceil(now));
+            }
+        });
+    });
+</script>
+{% endblock %}
+ 

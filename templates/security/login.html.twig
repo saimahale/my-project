@@ -1,0 +1,102 @@
+{% extends 'base_with_nav.html.twig' %}
+{% block page_title %}Sign in!{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+{% if error %}
+    <div class="text-center">
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    </div>
+{% endif %}
+<section class="login-page">
+    <div class="row login-wrapper">
+        <div class="login-section login-left-section col-md-6 left-side">
+             <div class="rabble-logo">
+                <img src="{{asset('images/rabblehome-blue-logo.png')}}"  alt="Rabblehome logo" />
+             </div>
+        </div>
+        <div class="login-section login-right-section col-md-6 right-side text-primary">
+            <form id="loginForm" method="post" class="login-form pl-5">
+                <div class="">
+                    <h6 class="text-center text-white py-1">login: service pros, agents, coordinators</h6>
+                    <div class="login-user-icon">
+                        <img src="{{asset('images/profile-icon.png')}}" alt="Profile Image" />
+                    </div>
+                    {% if app.user %}
+                        <div class="mb-3 text-success">
+                            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                        </div>
+                    {% endif %}
+                    <div class="form-group py-2">
+                        <img src="{{asset('images/email.png')}}" alt="Profile Image"  />
+
+                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" placeholder="Email" required autofocus>
+                    </div>
+                    <div class="form-group">
+                        <img src="{{asset('images/lock.png')}}" alt="Profile Image" />
+                        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" autocomplete="current-password" required>
+                    </div>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" >
+                    {#
+                        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                        See https://symfony.com/doc/current/security/remember_me.html
+
+                        <div class="checkbox mb-3">
+                            <label>
+                                <input type="checkbox" name="_remember_me"> Remember me
+                            </label>
+                        </div>
+                    #}
+                    <div class="row pb-3">
+                        <div class="col-6"></div>
+                        <div class="col-6 text-right"><a id="forgotLink" href="javascript:;" class="forgot-link">Forgot Password?</a></div>
+                    </div>
+                    <button class="btn btn-tertiary text-uppercase btn-block text-wrap " type="submit">Login</button>
+
+                </div>
+            </form>
+            <form id="forgotForm" style="display:none;" method="post" action="{{url('app_forgot')}}" class="login-form pl-5">
+                <p class="text-center text-white">Forgot Password?</p>
+                <div class="form-group">
+                    <img src="{{asset('images/email.png')}}" alt="Profile Image" />
+                    <input type="email" value="{{ last_username }}" name="email" class="form-control" autocomplete="email" placeholder="Email" required>
+                </div>
+                <div class="row pb-3">
+                    <div class="col-6"></div>
+                    <div class="col-6"><a id="loginLink" href="javascript:;" class="forgot-link">Login</a></div>
+                </div>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+                <button class="btn btn-tertiary text-uppercase btn-block" type="submit">
+                    Reset
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+<script>
+    $(document).ready(function () { 
+        $('#loginLink').click(function(){
+            $('#loginForm').show();
+            $('#forgotForm').hide();
+        });
+        $('#forgotLink').click(function(){
+            $('#forgotForm').show();
+            $('#loginForm').hide();
+        });
+    });
+
+    $('.count').each(function () {
+    $(this).prop('Counter',0).animate({
+        Counter: $(this).text()
+        }, {
+            duration: 8000,
+            easing: 'swing',
+            step: function (now) {
+                $(this).text(Math.ceil(now));
+            }
+        });
+    });
+</script>
+ {% block footer %}{% endblock %}
+{% endblock %}
