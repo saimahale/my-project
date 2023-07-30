@@ -1,0 +1,29 @@
+body {
+    background-color: lightgray;
+}
+.sidebar{
+    background: #4e73df !important;
+}
+
+.content-header{
+    background: transparent;
+}
+
+.content-body{
+    background: #fff;
+    box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
+}
+
+.main-content{
+    background: #f8f9fc;
+}
+
+.content-top, .main-header #header-logo a, #main-menu .menu .menu-item-contents, #main-menu .menu .menu-icon{
+    color: #fff;
+}
+
+#main-menu .menu .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
